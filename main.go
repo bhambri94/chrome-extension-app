@@ -39,7 +39,7 @@ func handleChromeExtensionWithNoFilters(w http.ResponseWriter, r *http.Request) 
 	sheets.BatchWrite(configs.Configurations.SheetNameWithRange, finalValues)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode("Sheet has been successfully updated")
+	json.NewEncoder(w).Encode("Sheet has been successfully updated: https://docs.google.com/spreadsheets/d/12nVbO18suvGe_vnapNh099pFO0r5pexek2fjYdEFOSI/edit#gid=0")
 }
 
 func handleChromeExtension(w http.ResponseWriter, r *http.Request) {
@@ -57,5 +57,5 @@ func handleChromeExtension(w http.ResponseWriter, r *http.Request) {
 	sheets.BatchWrite(configs.Configurations.SheetNameWithRange, finalValues)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode("Sheet has been successfully updated")
+	json.NewEncoder(w).Encode("Sheet has been successfully updated: https://docs.google.com/spreadsheets/d/12nVbO18suvGe_vnapNh099pFO0r5pexek2fjYdEFOSI/edit#gid=0")
 }
