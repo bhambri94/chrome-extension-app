@@ -46,6 +46,7 @@ func handleChromeExtension(w http.ResponseWriter, r *http.Request) {
 	sugar.Infof("calling chrome extension manager api with filters!")
 	configs.SetConfig()
 	category := mux.Vars(r)["category"]
+	category = category[1 : len(category)-1]
 	users := mux.Vars(r)["users"]
 	ratings := mux.Vars(r)["ratings"]
 	reviews_count := mux.Vars(r)["reviews_count"]
