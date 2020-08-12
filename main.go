@@ -44,14 +44,14 @@ func handleChromeExtensionWithNoFilters(w http.ResponseWriter, r *http.Request) 
 
 func handleChromeExtension(w http.ResponseWriter, r *http.Request) {
 	sugar.Infof("calling chrome extension manager api with filters!")
+	configs.SetConfig()
 	category := mux.Vars(r)["category"]
 	users := mux.Vars(r)["users"]
 	ratings := mux.Vars(r)["ratings"]
 	reviews_count := mux.Vars(r)["reviews_count"]
 	fmt.Println(category, users, ratings, reviews_count)
-	sugar.Infof("calling chrome extension manager api!")
-	configs.SetConfig()
 	finalValues := chrome.GetChromeExtensionWithFilters(category, users, ratings, reviews_count)
+	sugar.Infof("Completed! chrome extension manager api with filters!")
 	sheets.ClearSheet(configs.Configurations.SheetNameWithRange + ":M120000")
 	sheets.BatchWrite(configs.Configurations.SheetNameWithRange, finalValues)
 	w.Header().Set("Content-Type", "application/json")

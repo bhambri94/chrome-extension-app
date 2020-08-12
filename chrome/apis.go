@@ -75,7 +75,7 @@ func GetChromeExtensionWithFilters(category string, users string, ratings string
 			valueReviewsCountInt, _ := strconv.Atoi(Value)
 			if category == chromeExtension.Data[j][1] && usersInt <= ValueUsersInt && ratingsFloat <= valueRatingsFloat && reviewsCountInt <= valueReviewsCountInt {
 				finalValues = append(finalValues, chromeExtension.Data[j])
-				fmt.Println(finalValues)
+				// fmt.Println(finalValues)
 			}
 			j++
 		}
