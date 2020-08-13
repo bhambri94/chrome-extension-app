@@ -63,19 +63,9 @@ func GetChromeExtensionWithFilters(category string, users string, ratings string
 			firstApiCall = false
 		}
 		j := 0
-		usersInt, _ := strconv.Atoi(users)
-		ratingsFloat, _ := strconv.ParseFloat(ratings, 4)
-		reviewsCountInt, _ := strconv.Atoi(reviewsCount)
 		for j < 100 {
-			Value := fmt.Sprintf("%v", chromeExtension.Data[j][4])
-			ValueUsersInt, _ := strconv.Atoi(Value)
-			Value = fmt.Sprintf("%v", chromeExtension.Data[j][5])
-			valueRatingsFloat, _ := strconv.ParseFloat(Value, 4)
-			Value = fmt.Sprintf("%v", chromeExtension.Data[j][6])
-			valueReviewsCountInt, _ := strconv.Atoi(Value)
-			if category == chromeExtension.Data[j][1] && usersInt <= ValueUsersInt && ratingsFloat <= valueRatingsFloat && reviewsCountInt <= valueReviewsCountInt {
+			if category == chromeExtension.Data[j][1] {
 				finalValues = append(finalValues, chromeExtension.Data[j])
-				// fmt.Println(finalValues)
 			}
 			j++
 		}
@@ -133,21 +123,10 @@ func GetChromeExtensionWithoutCategory(users string, ratings string, reviewsCoun
 			firstApiCall = false
 		}
 		j := 0
-		usersInt, _ := strconv.Atoi(users)
-		ratingsFloat, _ := strconv.ParseFloat(ratings, 4)
-		reviewsCountInt, _ := strconv.Atoi(reviewsCount)
 		for j < 100 {
-			Value := fmt.Sprintf("%v", chromeExtension.Data[j][4])
-			ValueUsersInt, _ := strconv.Atoi(Value)
-			Value = fmt.Sprintf("%v", chromeExtension.Data[j][5])
-			valueRatingsFloat, _ := strconv.ParseFloat(Value, 4)
-			Value = fmt.Sprintf("%v", chromeExtension.Data[j][6])
-			valueReviewsCountInt, _ := strconv.Atoi(Value)
 			finalValues = append(finalValues, chromeExtension.Data[j])
-			// fmt.Println(finalValues)
 			j++
 		}
-		// time.Sleep(2 * time.Second)
 		i++
 	}
 	return finalValues
