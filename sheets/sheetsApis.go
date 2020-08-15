@@ -107,7 +107,7 @@ func Read(readRange string) {
 	}
 }
 
-func BatchWrite(SheetName string, value [][]interface{}) {
+func BatchWrite(SheetName string, value [][]interface{}) error {
 	if srv == nil {
 		srv = getClient()
 	}
@@ -122,10 +122,12 @@ func BatchWrite(SheetName string, value [][]interface{}) {
 	fmt.Println("Writing data to Google Sheets with data")
 	_, err := srv.Spreadsheets.Values.BatchUpdate(spreadsheetId, rb).Context(context.Background()).Do()
 	if err != nil {
-		log.Fatalf("Unable to retrieve data from sheet. %v", err)
+		fmt.Println("Unable to retrieve data from sheet. %v", err)
+		return err
 	} else {
 		fmt.Println("Data has been successfully pushed to Google Sheet")
 	}
+	return nil
 }
 
 type BatchGetResponse struct {
@@ -180,7 +182,7 @@ func BatchAppend(SheetName string, value [][]interface{}) {
 	fmt.Printf("%#v\n", resp)
 }
 
-func ClearSheet(SheetName string) {
+func ClearSheet(SheetName string) error {
 	readRange := SheetName
 	var itt bool
 	if srv == nil {
@@ -190,7 +192,6 @@ func ClearSheet(SheetName string) {
 	_, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
 	if err != nil {
 		fmt.Printf("Unable to retrieve data from sheet name: %v", err)
-		fmt.Println()
 		itt = true
 	}
 
@@ -208,7 +209,8 @@ func ClearSheet(SheetName string) {
 		}
 		_, err := srv.Spreadsheets.BatchUpdate(spreadsheetId, rbb).Context(context.Background()).Do()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			return err
 		}
 
 	} else {
@@ -217,7 +219,9 @@ func ClearSheet(SheetName string) {
 		rb := &sheets.ClearValuesRequest{}
 		_, err := srv.Spreadsheets.Values.Clear(spreadsheetId, ranges, rb).Context(context.Background()).Do()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			return err
 		}
 	}
+	return nil
 }
