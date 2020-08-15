@@ -80,6 +80,9 @@ func GetChromeExtension(category string, users string, ratings string, reviewsCo
 			firstAPICall = false
 		}
 		j := 0
+		if len(chromeExtension.Data) < 100 {
+			return finalValues, nil
+		}
 		for j < 100 {
 			if category == "" {
 				finalValues = append(finalValues, chromeExtension.Data[j])

@@ -40,12 +40,12 @@ func handleChromeExtensionWithNoFilters(w http.ResponseWriter, r *http.Request) 
 		err := sheets.ClearSheet(configs.Configurations.SheetNameWithRange + ":M120000")
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNoContent)
+			w.WriteHeader(http.StatusCreated)
 		}
 		err = sheets.BatchWrite(configs.Configurations.SheetNameWithRange, finalValues)
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNoContent)
+			w.WriteHeader(http.StatusCreated)
 			json.NewEncoder(w).Encode("Something went wrong. Seems like you have breched the max limit of Google Sheets to fill 500000 cells. Please use filters")
 		} else {
 			w.Header().Set("Content-Type", "application/json")
@@ -56,12 +56,12 @@ func handleChromeExtensionWithNoFilters(w http.ResponseWriter, r *http.Request) 
 		err := fmt.Sprintf("%v", error)
 		sugar.Infof("Failed! chrome extension manager api failed with error!" + err)
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("Failed! chrome extension manager api failed with error")
 	} else if finalValuesCount == 0 {
 		sugar.Infof("Failed! chrome extension manager api is giving 0 results, hence not updating Sheets!")
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusNoContent)
+		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("Failed! chrome extension manager api is giving 0 results, Not updating Google Sheets, Please check your request")
 	}
 }
@@ -80,12 +80,12 @@ func handleChromeExtensionFilters(w http.ResponseWriter, r *http.Request) {
 		err := sheets.ClearSheet(configs.Configurations.SheetNameWithRange + ":M120000")
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNoContent)
+			w.WriteHeader(http.StatusCreated)
 		}
 		err = sheets.BatchWrite(configs.Configurations.SheetNameWithRange, finalValues)
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNoContent)
+			w.WriteHeader(http.StatusCreated)
 			json.NewEncoder(w).Encode("Something went wrong. Seems like you have breched the max limit of Google Sheets to fill 500000 cells. Please use filters")
 		} else {
 			w.Header().Set("Content-Type", "application/json")
@@ -96,12 +96,12 @@ func handleChromeExtensionFilters(w http.ResponseWriter, r *http.Request) {
 		err := fmt.Sprintf("%v", error)
 		sugar.Infof("Failed! chrome extension manager api failed with error!" + err)
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("Failed! chrome extension manager api failed with error")
 	} else if finalValuesCount == 0 {
 		sugar.Infof("Failed! chrome extension manager api is giving 0 results, hence not updating Sheets!")
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusNoContent)
+		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("Failed! chrome extension manager api is giving 0 results, Not updating Google Sheets, Please check your request")
 	}
 }
@@ -122,13 +122,13 @@ func handleChromeExtensionWithCategoryAndFilters(w http.ResponseWriter, r *http.
 		err := sheets.ClearSheet(configs.Configurations.SheetNameWithRange + ":M120000")
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNoContent)
+			w.WriteHeader(http.StatusCreated)
 			json.NewEncoder(w).Encode("Something went wrong.")
 		}
 		err = sheets.BatchWrite(configs.Configurations.SheetNameWithRange, finalValues)
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNoContent)
+			w.WriteHeader(http.StatusCreated)
 			json.NewEncoder(w).Encode("Something went wrong. Seems like you have breched the max limit of Google Sheets to fill 500000 cells. Please use filters")
 		} else {
 			w.Header().Set("Content-Type", "application/json")
@@ -139,12 +139,12 @@ func handleChromeExtensionWithCategoryAndFilters(w http.ResponseWriter, r *http.
 		err := fmt.Sprintf("%v", error)
 		sugar.Infof("Failed! chrome extension manager api failed with error!" + err)
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusNoContent)
+		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("Failed! chrome extension manager api failed with error")
 	} else if finalValuesCount == 0 {
 		sugar.Infof("Failed! chrome extension manager api is giving 0 results, hence not updating Sheets!")
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusNoContent)
+		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("Failed! chrome extension manager api is giving 0 results, Not updating Google Sheets, Please check your request")
 	}
 
